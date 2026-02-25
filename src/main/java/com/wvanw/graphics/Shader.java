@@ -45,6 +45,11 @@ public class Shader {
         }
     }
 
+    public void setUniform(String name, int value) {
+        int location = glGetUniformLocation(handle, name);
+        glUniform1i(location, value);
+    }
+
     public void setUniformMat4(String name, Matrix4f matrix) {
         int loc = glGetUniformLocation(handle, name);
         try (MemoryStack stack = MemoryStack.stackPush()) {

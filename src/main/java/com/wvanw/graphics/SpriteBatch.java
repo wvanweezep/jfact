@@ -95,13 +95,13 @@ public class SpriteBatch {
         vertexBuffer.clear();
     }
 
-    public void draw(float x, float y, float width, float height) {
+    public void draw(float x, float y, float width, float height, float u0, float v0, float u1, float v1) {
         if (spriteCount >= MAX_SPRITES)
             flush();
-        putVertex(x, y, 0f, 0f);
-        putVertex(x + width, y, 1f, 0f);
-        putVertex(x + width, y + height, 1f, 1f);
-        putVertex(x, y + height, 0f, 1f);
+        putVertex(x, y, u0, v0);
+        putVertex(x + width, y, u1, v0);
+        putVertex(x + width, y + height, u1, v1);
+        putVertex(x, y + height, u0, v1);
         spriteCount++;
     }
 
