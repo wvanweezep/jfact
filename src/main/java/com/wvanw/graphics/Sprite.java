@@ -3,13 +3,33 @@ package com.wvanw.graphics;
 import org.joml.Vector2i;
 import org.joml.Vector4i;
 
+/**
+ * Class storing a view to an initialized {@link Texture} linked to a unique name.
+ */
 public class Sprite {
 
+    /**
+     * Alias for the Sprite under which it is registered.
+     */
     private final String name;
+    /**
+     * Source Texture used by the Sprite.
+     */
     private final Texture texture;
+    /**
+     * Subsection of the Texture defining the Sprite.
+     */
     private final Vector4i region;
+    /**
+     * Size of the Sprite in pixels.
+     */
     private final Vector2i size;
 
+    /**
+     * Creates a new Sprite of the full {@link Texture}.
+     * @param name alias for the Sprite
+     * @param texture source texture of the Sprite
+     */
     public Sprite(String name, Texture texture) {
         this.name = name;
         this.texture = texture;
@@ -17,6 +37,12 @@ public class Sprite {
         this.size = new Vector2i(region.z, region.w);
     }
 
+    /**
+     * Creates a new Sprite as a subsection of a {@link Texture}.
+     * @param name alias for the Sprite
+     * @param texture source texture of the Sprite
+     * @param region subsection of the Texture defining the Sprite
+     */
     public Sprite(String name, Texture texture, Vector4i region) {
         this.name = name;
         this.texture = texture;

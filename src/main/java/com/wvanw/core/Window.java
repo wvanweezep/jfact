@@ -8,6 +8,8 @@ import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
@@ -18,7 +20,6 @@ public class Window {
     // TEMP
     public Renderer2D renderer;
     public Shader shader;
-    public Sprite sprite;
 
 
     public Window(String title, int x, int y) {
@@ -34,8 +35,9 @@ public class Window {
         renderer = new Renderer2D();
         shader = new Shader("src/main/resources/shaders/default.vert",
                 "src/main/resources/shaders/default.frag");
-        sprite = new Sprite("testSprite", new Texture(
-                "testTex", "src/main/resources/textures/test.jpg"), new Vector4i(0, 0, 256, 256));
+        SpriteHandler.getInstance().register(new Sprite("testSprite",
+                TextureHandler.getInstance().register(new Texture("testTex", "src/main/resources/textures/test.jpg")),
+                new Vector4i(0, 0, 256, 256)));
         shader.setUniform("uTexture", 1);
 
         shader.bind();
@@ -64,9 +66,9 @@ public class Window {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // TODO: Render logic
-        shader.setUniformMat4("uProjection", new Matrix4f().ortho(0f, 1600, 900, 0f, -1f, 1f));
+        shader.setUniformMat4("uProjection", new Matrix4f().ortho(0f, 900, 600, 0f, -1f, 1f));
         renderer.begin();
-        renderer.draw(sprite, input.getMousePosition().x, input.getMousePosition().y);
+        renderer.draw(SpriteHandler.getInstance().get("testSprite"), input.getMousePosition().x, input.getMousePosition().y);
         renderer.end();
 
         glfwSwapBuffers(handle);
